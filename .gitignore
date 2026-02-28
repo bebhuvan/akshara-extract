@@ -1,0 +1,36 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+
+# Runtime artifacts
+input/
+output/
+.cache/
+logs/
+*.log
+*.jsonl
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Build/export artifacts
+*.epub
+*.docx
+*.pdf

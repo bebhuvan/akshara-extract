@@ -1,0 +1,39 @@
+# Project Akshara: Python Dependencies
+# =====================================
+# Install: pip install -r requirements.txt
+
+# Google Gemini API
+google-genai>=1.51.0
+
+# PDF Processing
+PyMuPDF>=1.23.0          # PDF to image conversion
+pdf2image>=1.16.0        # Alternative PDF processing
+Pillow>=10.0.0           # Image handling
+
+# Image Preprocessing
+opencv-python>=4.8.0     # Image enhancement, deskewing
+numpy>=1.24.0            # Numerical operations
+
+# Configuration & CLI
+PyYAML>=6.0              # Config file parsing
+click>=8.1.0             # CLI interface
+rich>=13.0.0             # Rich terminal output (optional, enhances logging)
+
+# Data Handling
+dataclasses-json>=0.6.0  # JSON serialization for dataclasses
+python-dateutil>=2.8.0   # Date parsing
+requests>=2.31.0         # HTTP client (Moonshot/Kimi shadow adapter)
+
+# Export Formats
+markdown>=3.5.0          # Markdown processing
+ebooklib>=0.18           # EPUB generation
+weasyprint>=60.0         # PDF generation (optional, requires system deps)
+
+# Testing
+pytest>=7.4.0            # Unit testing
+pytest-cov>=4.1.0        # Coverage reporting
+
+# Development (optional)
+black>=23.0.0            # Code formatting
+ruff>=0.1.0              # Linting
+mypy>=1.5.0              # Type checking

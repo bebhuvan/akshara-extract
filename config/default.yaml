@@ -1,0 +1,84 @@
+# Project Akshara — Flash Variant Configuration
+# ==============================================
+# Default settings for the Gemini 3 Flash pipeline.
+# Override with: python run.py input/book.pdf --config config/custom.yaml
+
+# ─── Model Configuration ─────────────────────────────────────────────────────
+gemini:
+  model: "gemini-3-flash-preview"
+  extraction_thinking: "minimal"    # MINIMAL for Flash (fast + cheap)
+  structure_thinking: "medium"      # MEDIUM for structure detection
+  boundary_thinking: "low"          # LOW for chapter boundary analysis
+  resolution: "high"                # Image resolution for extraction
+  max_retries: 3
+  retry_delay: 2.0
+  timeout: 120
+
+claude:
+  model: "haiku"                    # claude-haiku-4-5-20251001
+  max_tokens: 4096
+
+# ─── Pricing (per 1M tokens) ─────────────────────────────────────────────────
+pricing:
+  gemini:
+    input: 0.50
+    output: 3.00
+    cached: 0.125
+  claude:
+    input: 1.00
+    output: 5.00
+
+# ─── Cost Thresholds ─────────────────────────────────────────────────────────
+cost:
+  warn_threshold: 5.0               # Print warning above this (USD)
+  abort_threshold: 15.0             # Abort pipeline above this (USD)
+
+# ─── Preflight ────────────────────────────────────────────────────────────────
+preflight:
+  target_dpi: 300
+  enable_deskew: true
+  enable_contrast: true
+  enable_denoise: true
+  image_format: "png"
+
+# ─── Extraction ──────────────────────────────────────────────────────────────
+extraction:
+  detect_structure: true
+  blank_page_filter: true            # Filter LLM commentary from output
+
+# ─── Assembly ─────────────────────────────────────────────────────────────────
+assembly:
+  strict_chapter_detection: true     # Require chapter keywords for detection
+  footnote_multiline: true           # Support multi-line footnotes
+  footnote_dedup: true               # De-duplicate footnote IDs
+  llm_assembly_ops: true             # LLM proposes safe assembly operations (validated)
+  reader_assembly_mode: "deterministic"  # deterministic | llm_guided | llm_chunks (reader edition only)
+  preserve_nonchapter_headings: true # Keep subheadings/section headings in assembled output
+  reader_aggressive_publish_normalization: true  # Reader edition only (poetry/quote styling)
+  llm_planner_routing: {}            # Optional per-op backend: auto|gemini|claude (supports "*" for global; e.g. {"*": claude})
+  llm_planner_models: {}             # Optional per-op model alias for Claude routes (supports "*" for global; e.g. {"*": sonnet})
+
+# ─── Checkpointing ───────────────────────────────────────────────────────────
+cache:
+  enabled: true                      # Per-page JSON cache
+  cache_dir: ".cache"                # Relative to output dir
+  cache_failures: false              # Don't cache failed pages (allow retry)
+
+# ─── Export ───────────────────────────────────────────────────────────────────
+export:
+  formats:
+    - markdown
+  generate_qa_report: true
+  generate_metadata: true
+  write_archival_master: true        # Also emit conservative archival markdown companion
+
+# ─── Optional Kimi / Moonshot Shadow Challenger ─────────────────────────────
+kimi:
+  shadow_enabled: false              # Run Kimi in shadow mode for assembly-planner comparisons (logging only)
+  model: "kimi-k2.5"                 # OpenAI-compatible Moonshot model name
+  base_url: "https://api.moonshot.cn/v1"
+
+# ─── Expected Performance ────────────────────────────────────────────────────
+# Flash variant: ~$1-5 per 300-page book
+# Speed: ~2-4 seconds per page extraction
+# Quality: Good for clean printed text, may struggle with degraded pages
