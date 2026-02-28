@@ -2,7 +2,7 @@
 
 Project Akshara is an archival-first digitization pipeline for scanned public-domain books. It converts scanned PDFs into structured markdown and verification artifacts while preserving the source text as faithfully as possible.
 
-Project site: `https://akshara.ink`
+Project site: https://akshara.ink
 
 The project is built around a conservative idea: historical books should be handled like artifacts, not rewritten like generic OCR output.
 
